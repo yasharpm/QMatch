@@ -1,0 +1,74 @@
+<h1>پرسشنامه جدید</h1>
+<div class="questions" id="questions">
+    <div class="question">
+    </div>
+</div>
+<div class="add">
+    <label for="question">سوال</label><br>
+    <input id="question" type="text"><br>
+    <div class="add_answers" id="add_answers">
+    </div>
+    <label for="answer">جواب</label><br>
+    <input id="answer" type="text"><br>
+    <input type="submit" value="اضافه کردن جواب" onclick="addAnswer()"><br>
+    <input type="submit" value="اضافه کردن سوال" onclick="addQuestion()"><br>
+</div>
+<input type="submit" value="ایجاد پرسشنامه" onclick="addQuestionnaire()"><br>
+<script>
+    function addQuestionnaire() {
+        questions = []
+
+        
+    }
+
+    function addQuestion() {
+        const questions = document.getElementById('questions')
+        let question = document.getElementById('question').value
+
+        question = question.trim()
+
+        if (question.length == 0) {
+            alert('سوال خالی است')
+            return
+        }
+
+        const answerElements = Array.from(document.getElementById('add_answers').getElementsByClassName('answer'))
+
+        if (answerElements.length < 2) {
+            alert('حداقل 2 جواب الزامی است')
+            return
+        }
+
+        let questionElement = '<div>\n' +
+            '   <span class="questionText">' + question + '</span><br>\n' +
+            '   <div class="answers">\n';
+
+        answerElements.forEach(element => {
+            questionElement = questionElement +
+                '       <span class="answer">' + element.innerHTML + '</span><br>\n'
+        });
+
+        questionElement = questionElement + '   </div>\n</div>\n'
+
+        questions.innerHTML = questions.innerHTML + questionElement
+
+        document.getElementById('question').value = ''
+        document.getElementById('add_answers').innerHTML = ''
+    }
+
+    function addAnswer() {
+        const addAnswers = document.getElementById('add_answers')
+        let answer = document.getElementById('answer').value
+
+        answer = answer.trim()
+
+        if (answer.length == 0) {
+            alert('جواب خالی است')
+            return
+        }
+
+        addAnswers.innerHTML = addAnswers.innerHTML + '\n<span class="answer">' + answer + '</span><br>'
+
+        document.getElementById('answer').value = ''
+    }
+</script>
